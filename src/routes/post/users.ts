@@ -1,32 +1,38 @@
-import { PrismaClient } from '@prisma/client';
-import { Router } from 'express';
+import { Router } from "express";
+import { prisma } from "../../db/prismaClient";
 
-const prisma = new PrismaClient();
+interface IUserBody {
+  photoUrl: string;
+  username: string;
+  email: string;
+  password: string;
+  status: string;
+}
+
 const router = Router();
 
-router.post('/users', async (req, res) => {
-  const { photoUrl, username, email, password, status }: {photoUrl: string, username: string, email: string, password: string, status: string} = req.body;
+router.post("/users", async (req, res) => {
+  const { photoUrl, username, email, password, status }: IUserBody = req.body;
+
   try {
-    const newUser = await prisma.users.create({
-      data: {
-        photoUrl,
-        username,
-        email,
-        password,
-        status,
-      },
-    });
     res.json({
       message: "User created successfully",
-      user: newUser
+      user: await prisma.users.create({
+        data: {
+          photoUrl,
+          username,
+          email,
+          password,
+          status,
+        },
+      }),
     });
-  } catch (error: any) {
+  } catch (error) {
     res.status(500).json({
       message: "Error creating user",
-      error: error.message
+      error: error,
     });
   }
 });
 
 export default router;
-

@@ -10,6 +10,7 @@ package-lock.json
 
 # Prisma migration files
 prisma/migrations/
+src/generated/
 
 # Environment variables
-.env.*
+.env.development
