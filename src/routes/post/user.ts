@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { prisma } from "../../db/prismaClient";
+import prisma  from "../../db/prismaClient";
 
 interface IUserBody {
   photoUrl: string;
@@ -11,7 +11,7 @@ interface IUserBody {
 
 const router = Router();
 
-router.post("/users", async (req, res) => {
+router.post("/user", async (req, res) => {
   const { photoUrl, username, email, password, status }: IUserBody = req.body;
 
   try {
@@ -20,7 +20,7 @@ router.post("/users", async (req, res) => {
       user: await prisma.users.create({
         data: {
           photoUrl,
-          username,
+          username, 
           email,
           password,
           status,

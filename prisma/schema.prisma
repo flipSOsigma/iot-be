@@ -6,7 +6,7 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
+  // output   = "../src/generated/prisma"
 }
 
 datasource db {
@@ -27,14 +27,16 @@ model Users {
 }
 
 model Projects {
-  id              Int      @id @default(autoincrement())
-  projectUniqueId String   @default(uuid())
-  ownerUniqueId   String
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-  devices         Int
-  input           Int
-  output          Int
+  id                 Int      @id @default(autoincrement())
+  projectUniqueId    String   @default(uuid())
+  ownerUniqueId      String 
+  projectTitle       String
+  projectDescription String   @default("")
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+  devices            Int
+  input              Int
+  output             Int
 }
 
 model Devices {
